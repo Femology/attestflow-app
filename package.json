@@ -1,0 +1,10 @@
+{
+  "name": "attestflow-app",
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "pnpm --filter @attestflow/sdk build"
+  }
+}
