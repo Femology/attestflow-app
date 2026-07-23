@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+          
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+          
+      - name: Install Dependencies
+        run: pnpm install
+        
+      - name: Build SDK
+        run: pnpm --filter @attestflow/sdk build
+        
+      - name: Build Indexer
+        run: pnpm --filter @attestflow/indexer build
+        
+      - name: Build Web
+        run: pnpm --filter @attestflow/web build
