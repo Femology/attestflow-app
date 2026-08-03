@@ -62,8 +62,12 @@ export async function pollSorobanEvents(rpcUrl: string, attesterContractId: stri
         
         setLastLedgerSynced(currentLedger);
       }
-    } catch (err) {
-      console.error('Error polling events:', err);
+    } catch (err: any) {
+      if (err?.code === 'ETIMEDOUT' || err?.message?.includes('timeout')) {
+        console.log('[Indexer] RPC network timeout. Retrying in 5s...');
+      } else {
+        console.error('Error polling events:', err.message || err);
+      }
     }
     
     setTimeout(poll, POLL_INTERVAL);

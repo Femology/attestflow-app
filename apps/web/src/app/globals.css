@@ -2,7 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground: #171717;
-  --background: #f8fafc;
+@layer base {
+  :root {
+    --bg-primary: #FFFFFF;          /* Clean White */
+    --bg-card: #F4F4F5;             /* Light Gray (Zinc 100) */
+    --border-subtle: #E4E4E7;       /* Zinc 200 */
+    
+    /* Primary Signal Accents */
+    --accent-verified: #059669;     /* Emerald 600 */
+    --accent-revoked: #DC2626;      /* Red 600 */
+    --accent-primary: #EA580C;      /* Copper/Rust 600 */
+    
+    --text-main: #09090B;           /* Zinc 950 */
+    --text-muted: #52525B;          /* Zinc 600 */
+  }
+
+  .dark {
+    --bg-primary: #09090B;          /* Deep Off-Black */
+    --bg-card: #121215;             /* Tactile Surface */
+    --border-subtle: #27272A;       /* Sharp 1px Borders */
+    
+    /* Primary Signal Accents */
+    --accent-verified: #10B981;     /* Emerald 500 */
+    --accent-revoked: #EF4444;      /* Red 500 */
+    --accent-primary: #F97316;      /* Bright Copper/Orange 500 */
+    
+    --text-main: #FAFAFA;           /* Zinc 50 */
+    --text-muted: #A1A1AA;          /* Zinc 400 */
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-main);
+  }
 }

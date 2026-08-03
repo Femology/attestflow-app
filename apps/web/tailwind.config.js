@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: "class",
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -8,9 +9,19 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        background: "var(--bg-primary)",
+        foreground: "var(--text-main)",
+        card: "var(--bg-card)",
+        border: "var(--border-subtle)",
+        verified: "var(--accent-verified)",
+        revoked: "var(--accent-revoked)",
+        primary: "var(--accent-primary)",
+        muted: "var(--text-muted)",
       },
+      fontFamily: {
+        sans: ['"Inter"', 'sans-serif'],
+        serif: ['"Instrument Serif"', 'serif'],
+      }
     },
   },
   plugins: [],

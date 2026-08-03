@@ -5,6 +5,13 @@
     "node": ">=20"
   },
   "scripts": {
-    "build": "pnpm --filter @attestflow/sdk build"
+    "build": "pnpm -r build",
+    "dev": "pnpm --filter \"@attestflow/indexer\" --filter \"@attestflow/web\" run --parallel dev"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "better-sqlite3",
+      "esbuild"
+    ]
   }
 }
