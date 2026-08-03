@@ -1,0 +1,26 @@
+FROM node:20-slim AS base
+
+# Install build dependencies for better-sqlite3 native compilation
+RUN apt-get update && apt-get install -y python3 make g++ && rm -rf /var/lib/apt/lists/*
+
+# Setup pnpm
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
+
+WORKDIR /app
+
+# Copy the monorepo
+COPY . .
+
+# Install dependencies (onlyBuiltDependencies is enabled in package.json to allow better-sqlite3)
+RUN pnpm install
+
+# Build the SDK first (dependency), then the Indexer
+RUN pnpm --filter @attestflow/sdk build
+RUN pnpm --filter @attestflow/indexer build
+
+EXPOSE 3001
+
+# Run the compiled indexer
+CMD ["pnpm", "--filter", "@attestflow/indexer", "start"]

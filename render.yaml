@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: attestflow-indexer
+    env: docker
+    dockerfilePath: Dockerfile.indexer
+    plan: free
+    disk:
+      name: attestflow-db
+      mountPath: /app/indexer
+      sizeGB: 1
+    envVars:
+      - key: PORT
+        value: 3001
+      - key: RPC_URL
+        value: https://soroban-testnet.stellar.org
+      - key: ATTESTER_ID
+        value: CB4B22G5BMGCQQTH3MPNFF4MGLH342OP7PBLBBVK2XY3LCVSMYK4WPDO
+      - key: SCHEMA_REGISTRY_ID
+        value: CC4UT6NXLX7GP33XOKQKHQZTN3TTUQ3MCHVOD77U5EMH2FPRXACYY6JH
