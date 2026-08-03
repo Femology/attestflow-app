@@ -1,9 +1,10 @@
 services:
   - type: web
     name: attestflow-indexer
-    env: docker
-    dockerfilePath: Dockerfile.indexer
+    env: node
     plan: free
+    buildCommand: npm install -g pnpm && pnpm install && pnpm --filter @attestflow/sdk build && pnpm --filter @attestflow/indexer build
+    startCommand: pnpm --filter @attestflow/indexer start
     envVars:
       - key: PORT
         value: '3001'
