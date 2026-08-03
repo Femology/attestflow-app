@@ -4,13 +4,9 @@ services:
     env: docker
     dockerfilePath: Dockerfile.indexer
     plan: free
-    disk:
-      name: attestflow-db
-      mountPath: /app/indexer
-      sizeGB: 1
     envVars:
       - key: PORT
-        value: 3001
+        value: '3001'
       - key: RPC_URL
         value: https://soroban-testnet.stellar.org
       - key: ATTESTER_ID
