@@ -1,8 +1,10 @@
 import express from 'express';
+import cors from 'cors';
 import { db, getLastLedgerSynced } from './db';
 
 export function startServer(port: number) {
   const app = express();
+  app.use(cors());
   app.use(express.json());
 
   app.get('/health', (req, res) => {
