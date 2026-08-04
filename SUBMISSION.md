@@ -16,7 +16,8 @@ The project consists of three core pillars:
 ## Live Deployments & Links
 *   **Web Application (Live Demo):** https://attestflow-app-web.vercel.app
 *   **Indexer API Endpoint:** https://attestflow-indexer.onrender.com/health
-*   **GitHub Repository:** https://github.com/Femology/attestflow-app
+*   **Smart Contracts Repo:** https://github.com/Attestflow-app/attestflow-contract
+*   **App & SDK Monorepo:** https://github.com/Attestflow-app/attestflow-app
 *   **Soroban Testnet Contracts:**
     *   Schema Registry: `CC4UT6NXLX7GP33XOKQKHQZTN3TTUQ3MCHVOD77U5EMH2FPRXACYY6JH`
     *   Attester: `CB4B22G5BMGCQQTH3MPNFF4MGLH342OP7PBLBBVK2XY3LCVSMYK4WPDO`

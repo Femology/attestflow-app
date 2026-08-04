@@ -1,6 +1,6 @@
 # AttestFlow
 
-![Build Status](https://img.shields.io/github/actions/workflow/status/Femology/attestflow-app/ci.yml?branch=main)
+![Build Status](https://img.shields.io/github/actions/workflow/status/Attestflow-app/attestflow-app/ci.yml?branch=main)
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 ![Stellar Soroban](https://img.shields.io/badge/Stellar-Soroban-purple.svg)
 
@@ -63,4 +63,4 @@ Create a `.env` file in the root or within specific packages based on `.env.exam
 
 ### Smart Contracts
 The Soroban smart contracts (Schema Registry and Attester) are maintained in a separate repository:
-[https://github.com/Femology/attestflow-contract](https://github.com/Femology/attestflow-contract)
+[https://github.com/Attestflow-app/attestflow-contract](https://github.com/Attestflow-app/attestflow-contract)
