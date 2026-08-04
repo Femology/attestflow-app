@@ -1,27 +1,37 @@
-# Drips Wave Grant Submission
+# Drips Wave / Stellar Community Fund Submission
 
-**Project Name:** AttestFlow
-**Tagline:** Verifiable On-Chain Attestation & Credential Protocol for Soroban
+## Project Overview
+*   **Project Name:** AttestFlow
+*   **Tagline:** Verifiable On-Chain Attestation & Credential Protocol for Soroban
+*   **Category:** Identity / Developer Tooling / Infrastructure
 
-## One-Paragraph Description
-AttestFlow is a comprehensive, privacy-preserving attestation protocol built on the Stellar Soroban smart contract platform. It solves the fragmentation of verifiable credentials in the Stellar ecosystem by providing a standardized Schema Registry and an Attester contract that stores unforgeable, GDPR-compliant data hashes on-chain. Together with a specialized TypeScript SDK, a high-concurrency event Indexer, and a seamless Next.js Web UI integrated with Freighter Wallet, AttestFlow empowers developers to instantly issue, explore, and verify credentials without building custom infrastructure from scratch.
+## Description
+AttestFlow is a comprehensive, full-stack protocol enabling the creation, issuance, and verification of digital credentials on the Stellar Soroban network. By storing immutable hashes of data on-chain and preserving actual PII off-chain, AttestFlow provides a GDPR-compliant, unforgeable identity and attestation layer for Web3 applications.
 
-## Repository Links
-- **Smart Contracts:** [https://github.com/Femology/attestflow-contract](https://github.com/Femology/attestflow-contract)
-- **App Monorepo (Web, SDK, Indexer):** [https://github.com/Femology/attestflow-app](https://github.com/Femology/attestflow-app)
+The project consists of three core pillars:
+1.  **Soroban Smart Contracts:** `SchemaRegistry` and `Attester` for managing the lifecycle of attestations.
+2.  **AttestFlow SDK & Indexer:** A robust TypeScript SDK and an Express-based Indexer for rapid off-chain querying and transaction building.
+3.  **Zero-Friction Web Interface:** A highly polished, mobile-responsive Next.js application that allows non-technical users to build schemas and issue credentials instantly.
 
-## Repo Relationship Statement
-The `attestflow-app` monorepo acts as the full-stack consumer of the `attestflow-contract` smart contracts. Specifically, the `@attestflow/sdk` dynamically maps TypeScript function calls to Soroban XDR payloads, bridging the Next.js frontend to the deployed Testnet contracts. Meanwhile, the `@attestflow/indexer` continuously polls the Soroban RPC to synchronize emitted contract events (like `SchemaCreated` and `AttestationIssued`) into a structured local database, powering the frontend's instant verification API.
+## Live Deployments & Links
+*   **Web Application (Live Demo):** https://attestflow-app-web.vercel.app
+*   **Indexer API Endpoint:** https://attestflow-indexer.onrender.com/health
+*   **GitHub Repository:** https://github.com/Femology/attestflow-app
+*   **Soroban Testnet Contracts:**
+    *   Schema Registry: `CC4UT6NXLX7GP33XOKQKHQZTN3TTUQ3MCHVOD77U5EMH2FPRXACYY6JH`
+    *   Attester: `CB4B22G5BMGCQQTH3MPNFF4MGLH342OP7PBLBBVK2XY3LCVSMYK4WPDO`
 
-## Deployed Contract Addresses (Soroban Testnet)
-- **Schema Registry:** `CC4UT6NXLX7GP33XOKQKHQZTN3TTUQ3MCHVOD77U5EMH2FPRXACYY6JH`
-  - [View on Stellar Expert](https://stellar.expert/explorer/testnet/contract/CC4UT6NXLX7GP33XOKQKHQZTN3TTUQ3MCHVOD77U5EMH2FPRXACYY6JH)
-- **Attester:** `CB4B22G5BMGCQQTH3MPNFF4MGLH342OP7PBLBBVK2XY3LCVSMYK4WPDO`
-  - [View on Stellar Expert](https://stellar.expert/explorer/testnet/contract/CB4B22G5BMGCQQTH3MPNFF4MGLH342OP7PBLBBVK2XY3LCVSMYK4WPDO)
+## Demo Video Checklist (2 Minutes)
+When recording the submission demo video, ensure you capture the following flow:
+- [ ] **0:00 - 0:20 | Introduction:** Show the landing page. Explain what AttestFlow solves (on-chain verification without PII).
+- [ ] **0:20 - 0:50 | Create Schema:** Connect Freighter wallet. Go to "Create Schema", build a custom schema (e.g., "Event Ticket" with Name and Class), and submit to Soroban. Show the success toast/hash.
+- [ ] **0:50 - 1:20 | Issue Attestation:** Navigate to "Issue". Select the newly created schema. Fill in a recipient wallet address and the dynamic form fields. Click Issue.
+- [ ] **1:20 - 1:50 | Verification:** Copy the generated `UID`. Go to the "Verify" tab, paste the UID and the exact JSON data. Show the cryptographically verified checkmark.
+- [ ] **1:50 - 2:00 | Conclusion:** Show the "Explore" tab populated by the Indexer, proving data is successfully tracked off-chain.
 
-## Demo Flow Checklist
-- [ ] **Step 1:** Connect Freighter Wallet to the AttestFlow Next.js dashboard.
-- [ ] **Step 2:** Navigate to "Create Schema", input a JSON schema definition, and sign the creation transaction.
-- [ ] **Step 3:** Navigate to "Issue Attestation", select the newly minted Schema ID, input payload data, and sign the issuance transaction.
-- [ ] **Step 4:** Navigate to the "Explorer" tab to view the synchronized data surfaced by the real-time Indexer.
-- [ ] **Step 5:** Copy the generated `UID` and paste it into the "Verify" tab to demonstrate immediate cryptographic verification.
+## Documentation Reference
+Full technical documentation is located in the `/docs` directory:
+*   [Protocol Mechanics](./docs/protocol-mechanics.md)
+*   [Smart Contract Reference](./docs/smart-contract-reference.md)
+*   [SDK Guide](./docs/sdk-guide.md)
+*   [API Reference](./docs/api-reference.md)

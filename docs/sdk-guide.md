@@ -1,13 +1,23 @@
-# SDK Guide
+# AttestFlow SDK Guide
 
-The `@attestflow/sdk` is a TypeScript wrapper simplifying interaction with the Soroban RPC and AttestFlow smart contracts.
+The `@attestflow/sdk` is a TypeScript library that provides a seamless interface for interacting with the AttestFlow Soroban smart contracts. It abstracts away XDR building, hashing, and TTL management.
 
 ## Installation
+
+Install the SDK via your preferred package manager (ensure you are using Node 20+):
+
 ```bash
-pnpm add @attestflow/sdk @stellar/stellar-sdk
+pnpm add @attestflow/sdk
+# or
+npm install @attestflow/sdk
+# or
+yarn add @attestflow/sdk
 ```
 
 ## Initialization
+
+Import the SDK and instantiate it with your RPC and network configurations.
+
 ```typescript
 import { AttestFlowSDK } from "@attestflow/sdk";
 
@@ -19,49 +29,86 @@ const sdk = new AttestFlowSDK({
 });
 ```
 
-## Fetching a Schema (Read-only)
+## Creating a Schema Blueprint
+
+To create a new schema, you must define the schema structure as a JSON object, convert it to a hex string, and build the transaction.
+
 ```typescript
-const schemaId = 1n;
-try {
-  const schema = await sdk.getSchema(schemaId);
-  console.log("Schema retrieved:", schema);
-} catch (e) {
-  console.error("Schema not found!");
-}
+// 1. Define schema
+const schema = {
+  name: "Event Ticket",
+  description: "Proof of attendance for the Stellar Developer Summit",
+  fields: [
+    { name: "Event Name", type: "string" },
+    { name: "Ticket Class", type: "string" }
+  ]
+};
+
+// 2. Convert to Hex
+const schemaJsonStr = JSON.stringify(schema);
+const schemaHex = Buffer.from(schemaJsonStr).toString('hex');
+
+// 3. Build Transaction (Requires Signature)
+const issuerPublicKey = "G...";
+const isRevocable = true;
+
+const tx = await sdk.buildCreateSchemaTx(issuerPublicKey, schemaHex, isRevocable);
+// Sign and submit 'tx' using Freighter or another wallet
 ```
 
-## Building Transactions (Write)
-The SDK builds XDR objects which must be signed by a wallet (e.g., Freighter) before submission.
+## Issuing an Attestation
 
-### Create Schema
+Issuing an attestation requires generating a deterministic UID, hashing the payload data off-chain, and invoking the attester contract.
+
 ```typescript
-const tx = await sdk.buildCreateSchemaTx(
-  "G_YOUR_PUBLIC_KEY",
-  "7b2274797065223a22646567726565227d", // Hex encoded schema definition
-  true // Revocable
-);
-// Sign and submit `tx.toXDR()` via wallet
-```
+import { formatUid, hashData } from "@attestflow/sdk";
 
-### Issue Attestation
-```typescript
-import { hashData, formatUid } from "@attestflow/sdk";
+const recipientPublicKey = "G...";
+const schemaId = 1n; 
 
-const recipient = "G_RECIPIENT_KEY";
-const schemaId = 1n;
-const rawData = JSON.stringify({ degree: "BSc Computer Science", year: 2026 });
+// 1. Prepare data and hash it
+const credentialData = {
+  "Event Name": "Stellar Developer Summit",
+  "Ticket Class": "VIP"
+};
+const dataPayload = JSON.stringify(credentialData);
+const dataHashHex = hashData(dataPayload); // SHA-256 hash
 
-const dataHash = hashData(rawData);
-const uid = formatUid("G_YOUR_PUBLIC_KEY", recipient, schemaId, Date.now().toString());
-const expirationTime = 0n; // Does not expire
+// 2. Generate a Unique ID (UID)
+const timestamp = Date.now().toString();
+const uid = formatUid(issuerPublicKey, recipientPublicKey, schemaId, timestamp);
 
+// 3. Set Expiration (0n for never expires)
+const expirationTimestamp = 0n;
+
+// 4. Build Transaction
 const tx = await sdk.buildIssueAttestationTx(
-  "G_YOUR_PUBLIC_KEY",
-  recipient,
+  issuerPublicKey,
+  recipientPublicKey,
   schemaId,
-  dataHash,
-  expirationTime,
+  dataHashHex,
+  expirationTimestamp,
   uid
 );
-// Sign and submit `tx.toXDR()` via wallet
+// Sign and submit 'tx' using Freighter
+```
+
+## Verifying an Attestation
+
+To verify an attestation's existence and validity directly from the blockchain:
+
+```typescript
+try {
+  const attestation = await sdk.verifyAttestation(uid);
+  
+  if (attestation.revoked) {
+    console.log("Attestation is revoked!");
+  } else if (attestation.expiration !== 0n && BigInt(Date.now()) > attestation.expiration) {
+    console.log("Attestation is expired!");
+  } else {
+    console.log("Attestation is valid!", attestation);
+  }
+} catch (error) {
+  console.log("Attestation not found or invalid UID.");
+}
 ```
