@@ -2,7 +2,7 @@
 
 import WalletConnect from "./WalletConnect";
 import { useTheme } from "./ThemeProvider";
-import { Moon, Sun } from "lucide-react";
+import { Moon, Sun, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
 interface NavbarProps {
@@ -15,6 +15,7 @@ export default function Navbar({ activeTab, setActiveTab, onWalletConnect }: Nav
   const tabs = ["Home", "Explore", "Create Schema", "Issue", "Verify"];
   const { theme, toggleTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => setMounted(true), []);
 
@@ -54,7 +55,35 @@ export default function Navbar({ activeTab, setActiveTab, onWalletConnect }: Nav
           </button>
         )}
         <WalletConnect onConnect={onWalletConnect} />
+        <button 
+          className="md:hidden p-2 text-muted hover:text-foreground"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
       </div>
+      
+      {/* Mobile Menu Dropdown */}
+      {isMobileMenuOpen && (
+        <div className="absolute top-full left-0 right-0 bg-background border-b border-border shadow-lg p-4 flex flex-col space-y-2 md:hidden">
+          {tabs.map((tab) => (
+            <button
+              key={tab}
+              onClick={() => {
+                setActiveTab(tab);
+                setIsMobileMenuOpen(false);
+              }}
+              className={`px-4 py-3 rounded-lg text-left text-sm transition-all duration-200 border ${
+                activeTab === tab
+                  ? "bg-card border-border text-foreground shadow-sm"
+                  : "border-transparent text-muted hover:text-foreground hover:bg-card/50"
+              }`}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
+      )}
     </nav>
   );
 }

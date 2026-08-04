@@ -62,7 +62,7 @@ export default function CreateSchemaForm({ publicKey }: { publicKey: string | nu
   return (
     <div className="flex flex-col lg:flex-row gap-8 w-full max-w-7xl mx-auto">
       {/* Left Panel: No-Code Builder */}
-      <div className="flex-1 bg-card border border-border rounded-2xl p-8 shadow-xl flex flex-col gap-6">
+      <div className="flex-1 bg-card border border-border rounded-2xl p-5 md:p-8 shadow-xl flex flex-col gap-6">
         <div>
           <h2 className="text-2xl font-serif text-foreground mb-1">Create Schema Blueprint</h2>
           <p className="text-sm text-muted">Define the fields for your digital credential.</p>
@@ -76,7 +76,7 @@ export default function CreateSchemaForm({ publicKey }: { publicKey: string | nu
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g., University Diploma"
-              className="w-full bg-background border border-border rounded-lg px-4 py-2.5 text-foreground focus:ring-1 focus:ring-primary outline-none transition-all"
+              className="w-full bg-background border border-border rounded-lg px-4 py-2.5 text-base sm:text-sm text-foreground focus:ring-1 focus:ring-primary outline-none transition-all"
             />
           </div>
           <div>
@@ -85,7 +85,7 @@ export default function CreateSchemaForm({ publicKey }: { publicKey: string | nu
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Issued to graduates of the 2026 class."
-              className="w-full bg-background border border-border rounded-lg px-4 py-2.5 text-foreground focus:ring-1 focus:ring-primary outline-none transition-all"
+              className="w-full bg-background border border-border rounded-lg px-4 py-2.5 text-base sm:text-sm text-foreground focus:ring-1 focus:ring-primary outline-none transition-all"
               rows={2}
             />
           </div>
@@ -101,30 +101,32 @@ export default function CreateSchemaForm({ publicKey }: { publicKey: string | nu
 
           <div className="space-y-3">
             {fields.map((field, index) => (
-              <div key={index} className="flex items-center gap-3">
+              <div key={index} className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 border sm:border-0 border-border p-3 sm:p-0 rounded-lg sm:rounded-none">
                 <input
                   type="text"
                   value={field.name}
                   onChange={(e) => updateField(index, "name", e.target.value)}
-                  placeholder="Field Name (e.g., Student Name)"
-                  className="flex-1 bg-background border border-border rounded-lg px-3 py-2 text-sm text-foreground focus:ring-1 focus:ring-primary outline-none"
+                  placeholder="Field Name"
+                  className="flex-1 bg-background border border-border rounded-lg px-3 py-2 text-base sm:text-sm text-foreground focus:ring-1 focus:ring-primary outline-none"
                 />
-                <select
-                  value={field.type}
-                  onChange={(e) => updateField(index, "type", e.target.value)}
-                  className="w-32 bg-background border border-border rounded-lg px-3 py-2 text-sm text-foreground focus:ring-1 focus:ring-primary outline-none appearance-none"
-                >
+                <div className="flex items-center gap-3">
+                  <select
+                    value={field.type}
+                    onChange={(e) => updateField(index, "type", e.target.value)}
+                    className="flex-1 sm:w-32 bg-background border border-border rounded-lg px-3 py-2 text-base sm:text-sm text-foreground focus:ring-1 focus:ring-primary outline-none appearance-none"
+                  >
                   <option value="string">Text</option>
                   <option value="number">Number</option>
                   <option value="date">Date</option>
                   <option value="address">Wallet Address</option>
-                </select>
-                <button 
-                  onClick={() => removeField(index)}
-                  className="p-2 text-muted hover:text-revoked transition-colors rounded-lg hover:bg-revoked/10"
-                >
-                  <Trash2 size={18} />
-                </button>
+                  </select>
+                  <button 
+                    onClick={() => removeField(index)}
+                    className="p-2 text-muted hover:text-revoked transition-colors rounded-lg hover:bg-revoked/10"
+                  >
+                    <Trash2 size={18} />
+                  </button>
+                </div>
               </div>
             ))}
           </div>
@@ -156,7 +158,7 @@ export default function CreateSchemaForm({ publicKey }: { publicKey: string | nu
 
       {/* Right Panel: Live Preview */}
       <div className="flex-1 w-full flex flex-col gap-6">
-        <div className="bg-card border border-border rounded-2xl p-8 shadow-xl relative overflow-hidden group">
+        <div className="bg-card border border-border rounded-2xl p-5 md:p-8 shadow-xl relative overflow-hidden group">
           <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-[50px] -mr-16 -mt-16 pointer-events-none" />
           
           <h3 className="text-xs font-medium text-muted uppercase tracking-wider mb-6 flex items-center gap-2">

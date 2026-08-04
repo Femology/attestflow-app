@@ -17,23 +17,23 @@ export default function Home() {
         <div className="inline-block px-4 py-1.5 rounded-full border border-primary/30 bg-primary/10 text-primary text-sm font-semibold tracking-wide">
           Soroban Testnet Live
         </div>
-        <h1 className="text-5xl lg:text-7xl font-serif font-bold text-foreground leading-tight tracking-tight">
+        <h1 className="text-4xl md:text-5xl lg:text-7xl font-serif font-bold text-foreground leading-tight tracking-tight">
           The Digital Notary for <span className="text-primary">Stellar</span>
         </h1>
         <p className="text-xl text-muted max-w-2xl leading-relaxed">
           Instantly issue, manage, and verify unforgeable credentials on-chain. 
           AttestFlow provides zero-friction data verification for enterprises and individuals.
         </p>
-        <div className="flex items-center gap-6 pt-4">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4">
           <button 
             onClick={() => setActiveTab("Explore")}
-            className="px-8 py-4 bg-primary hover:bg-primary/90 text-white rounded-lg font-medium transition-all shadow-[0_0_20px_rgba(249,115,22,0.4)]"
+            className="px-8 py-4 bg-primary hover:bg-primary/90 text-white rounded-lg font-medium transition-all shadow-[0_0_20px_rgba(249,115,22,0.4)] w-full sm:w-auto"
           >
             Explore Registry
           </button>
           <button 
             onClick={() => setActiveTab("Verify")}
-            className="px-8 py-4 bg-card border border-border hover:border-zinc-700 text-foreground rounded-lg font-medium transition-all"
+            className="px-8 py-4 bg-card border border-border hover:border-zinc-700 text-foreground rounded-lg font-medium transition-all w-full sm:w-auto"
           >
             Verify a Credential
           </button>
@@ -43,7 +43,7 @@ export default function Home() {
       {/* Interactive Live Demo Widget (Right Side) */}
       <div className="flex-1 w-full max-w-md relative">
         <div className="absolute inset-0 bg-primary/20 blur-[100px] rounded-full mix-blend-screen" />
-        <div className="relative bg-card border border-border rounded-2xl p-8 shadow-2xl flex flex-col gap-6">
+        <div className="relative bg-card border border-border rounded-2xl p-5 md:p-8 shadow-2xl flex flex-col gap-6">
           <div className="flex items-center justify-between border-b border-border pb-4">
             <h3 className="font-serif text-2xl text-foreground">Certificate of Validity</h3>
             <div className="w-8 h-8 rounded-full bg-verified/20 flex items-center justify-center">

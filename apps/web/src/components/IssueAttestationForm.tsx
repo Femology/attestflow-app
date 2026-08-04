@@ -102,7 +102,7 @@ export default function IssueAttestationForm({ publicKey }: { publicKey: string 
   return (
     <div className="w-full max-w-5xl mx-auto flex flex-col gap-8">
       {/* Step 1: Select Schema */}
-      <div className="bg-card border border-border rounded-2xl p-8 shadow-xl">
+      <div className="bg-card border border-border rounded-2xl p-5 md:p-8 shadow-xl">
         <div className="mb-6 flex items-center gap-3">
           <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
             <Layers size={20} />
@@ -146,7 +146,7 @@ export default function IssueAttestationForm({ publicKey }: { publicKey: string 
       </div>
 
       {/* Step 2: Dynamic Form */}
-      <div className={`bg-card border border-border rounded-2xl p-8 shadow-xl transition-all duration-300 ${selectedSchema ? "opacity-100 translate-y-0" : "opacity-50 pointer-events-none translate-y-4"}`}>
+      <div className={`bg-card border border-border rounded-2xl p-5 md:p-8 shadow-xl transition-all duration-300 ${selectedSchema ? "opacity-100 translate-y-0" : "opacity-50 pointer-events-none translate-y-4"}`}>
         <div className="mb-6 flex items-center gap-3">
           <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
             <FileText size={20} />
@@ -165,7 +165,7 @@ export default function IssueAttestationForm({ publicKey }: { publicKey: string 
                 type="text" 
                 value={recipient} 
                 onChange={(e) => setRecipient(e.target.value)} 
-                className="w-full bg-background border border-border rounded-lg px-4 py-2.5 text-foreground font-mono text-sm focus:ring-1 focus:ring-primary outline-none" 
+                className="w-full bg-background border border-border rounded-lg px-4 py-2.5 text-foreground font-mono text-base sm:text-sm focus:ring-1 focus:ring-primary outline-none" 
                 required 
                 placeholder="G..." 
               />
@@ -180,7 +180,7 @@ export default function IssueAttestationForm({ publicKey }: { publicKey: string 
                   type={field.type === 'number' ? 'number' : field.type === 'date' ? 'date' : 'text'}
                   value={formData[field.name] || ''} 
                   onChange={(e) => handleFieldChange(field.name, e.target.value)} 
-                  className="w-full bg-background border border-border rounded-lg px-4 py-2.5 text-foreground focus:ring-1 focus:ring-primary outline-none" 
+                  className="w-full bg-background border border-border rounded-lg px-4 py-2.5 text-foreground text-base sm:text-sm focus:ring-1 focus:ring-primary outline-none" 
                   required 
                 />
               </div>
@@ -192,7 +192,7 @@ export default function IssueAttestationForm({ publicKey }: { publicKey: string 
                 type="datetime-local" 
                 value={expiration} 
                 onChange={(e) => setExpiration(e.target.value)} 
-                className="w-full bg-background border border-border rounded-lg px-4 py-2.5 text-foreground text-sm focus:ring-1 focus:ring-primary outline-none [color-scheme:dark]" 
+                className="w-full bg-background border border-border rounded-lg px-4 py-2.5 text-foreground text-base sm:text-sm focus:ring-1 focus:ring-primary outline-none [color-scheme:dark]" 
               />
             </div>
           </div>

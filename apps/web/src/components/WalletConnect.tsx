@@ -38,9 +38,9 @@ export default function WalletConnect({ onConnect }: { onConnect?: (pk: string) 
   return (
     <button
       onClick={handleConnect}
-      className="bg-primary hover:bg-primary/90 text-white px-5 py-2.5 rounded-lg font-medium text-sm transition-all duration-200 shadow-[0_0_15px_rgba(249,115,22,0.3)] hover:shadow-[0_0_20px_rgba(249,115,22,0.5)] border border-primary/20"
+      className="bg-primary hover:bg-primary/90 text-white px-4 sm:px-5 py-2.5 rounded-lg font-medium text-sm transition-all duration-200 shadow-[0_0_15px_rgba(249,115,22,0.3)] hover:shadow-[0_0_20px_rgba(249,115,22,0.5)] border border-primary/20"
     >
-      Connect Freighter
+      Connect<span className="hidden sm:inline"> Freighter</span>
     </button>
   );
 }
